@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/posts-routes');
-const usersRoutes = require('./routes/users-routes')
 const HttpError = require("./models/http-error");
 const mongoUrl = 'mongodb+srv://mike:QNQAmcQp59F9qrrt@cluster0.93nvw.mongodb.net/newsappprod?retryWrites=true&w=majority'
 
@@ -25,8 +24,14 @@ app.use('/api' , (req, res, next)=> {
 })
 
 
-app.use('/api/posts' ,); // => /api/posts ....
-// app.use('/api/users' ,); // => /api/users ....
+app.use('/api/posts' ,postsRoutes); // => /api/posts ....
+// app.use('/api/users' ,usersRoutes); // => /api/users ....
+
+// error for unsupported routes
+app.use((req, res, next)=>{
+    const error = new HttpError('Could not find this route', 401)
+    next(error)
+})
 
 
 // error case last rote !!!
