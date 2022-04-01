@@ -12,8 +12,11 @@ pipeline {
         stage('Build') {
             steps {
                sh 'npm install'
-               npm install
-           
+                 cd .\frontend\
+                 npm install
+                 cd ..
+                 cd .\backend\
+                 npm run build
             }
         }
         stage('Test') {
