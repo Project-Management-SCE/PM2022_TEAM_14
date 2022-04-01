@@ -12,7 +12,7 @@ app.use('/api' , (req, res, next)=> {
     res.json({ message :'Welcome to awesome server !!!!'})
 })
 
-//
+
 // app.use('/api/posts' ,); // => /api/posts ....
 // app.use('/api/users' ,); // => /api/users ....
 
