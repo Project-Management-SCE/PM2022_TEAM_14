@@ -11,11 +11,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh cd .\frontend\
-                 sh npm install
-                sh cd ..
-                sh cd .\backend\
-                sh npm run build
+                sh './jenkins/scripts/build.sh'
             }
         }
         stage('Test') {
