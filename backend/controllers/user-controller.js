@@ -87,5 +87,61 @@ const signup = async (req, res, next) => {
 
 }
 
+const login = async (req, res, next) => {
+    const {email, password} = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({email})
+    }catch (e) {
+        const error = new HttpError(
+            "Could not find existing user", 500
+        )
+        return next(error)
+    }
+
+    if(!existingUser) {
+        return next(new HttpError('Credentials are wrong'), 403)
+    }
+
+    let isValidPassword = false;
+    try {
+        isValidPassword = await bcrypt.compare(password, existingUser.password)
+    }catch (e) {
+        const error = new HttpError(
+            "Could not find existing user", 500
+        )
+        return next(error)
+    }
+
+    if(!isValidPassword) {
+        return next(new HttpError('Credentials are wrong'), 403)
+    }
+
+    let token;
+    try {
+        token = jwt.sign(
+            {userId: existingUser.id, email: existingUser.email},
+            'best_key',
+            {expiresIn: '1h'})
+    }catch (e) {
+        const error = new HttpError(
+            "Could not find existing user", 500
+        )
+        return next(error)
+    }
+
+    res.json(
+        {   userId: existingUser.id,
+            userName: existingUser.name,
+            userImg: existingUser.image,
+            email: existingUser.email,
+            token: token,
+            isAdmin: existingUser.isAdmin
+        }
+    )
+}
+
 exports.signup = signup;
+exports.login = login;
 
