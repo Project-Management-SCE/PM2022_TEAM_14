@@ -2,11 +2,11 @@ import React, {useState, useContext} from "react";
 import Card from "../../shared/components/UIElements/Card/Card";
 import Input from "../../shared/components/FormElements/Input/Input";
 import Button from "../../shared/components/FormElements/Button";
-import {useForm} from "../../shared/hoooks/form-hook";
+import {useForm} from "../../shared/hooks/form-hook";
 import {AuthContext} from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 import './Auth.css';
 import {
     VALIDATOR_EMAIL,

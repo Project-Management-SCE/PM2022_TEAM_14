@@ -7,7 +7,7 @@ import {AuthContext} from "../../shared/context/auth-context";
 
 
 import './PostItem.css'
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import Avatar from "../../shared/components/UIElements/Avatar/Avatar";

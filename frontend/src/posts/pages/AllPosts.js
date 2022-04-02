@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PostList from "../components/PostList";
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 
 
