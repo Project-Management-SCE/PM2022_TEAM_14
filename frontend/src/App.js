@@ -5,6 +5,7 @@ import {AuthContext} from "./shared/context/auth-context";
 import {useAuth} from "./shared/hooks/auth-hook";
 import AllPosts from "./posts/pages/AllPosts";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
+import NewPost from "./posts/pages/NewPost";
 
 
 
@@ -29,7 +30,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/posts/new" exact={true}>
-
+                    <NewPost/>
                 </Route>
 
                 <Route path="/posts/:postId" exact={true}>

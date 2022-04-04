@@ -7,6 +7,16 @@ export const useAuth = () => {
     const [userId, setUserId] = useState(null)
     const [isAdmin, setIsAdmin] = useState(false)
 
+
+    const logout = useCallback(() => {
+        setToken(null);
+        setTokenExpirationDate(null)
+        setUserId(null)
+        setIsAdmin(false)
+        localStorage.removeItem('userData')
+    }, [])
+
+
     const login = useCallback((uid, token,  isAdmin, expirationDate) => {
         setToken(token);
         setUserId(uid);
@@ -21,14 +31,6 @@ export const useAuth = () => {
                 expiration: tokenExpiration.toISOString()
             }))
 
-    }, [])
-
-    const logout = useCallback(() => {
-        setToken(null);
-        setTokenExpirationDate(null)
-        setUserId(null)
-        setIsAdmin(false)
-        localStorage.removeItem('userData')
     }, [])
 
     useEffect(() => {

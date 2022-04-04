@@ -12,16 +12,15 @@ const NavLinks = props => {
         <li>
             <NavLink to="/" exact>ALL POSTS</NavLink>
         </li>
-
         {!auth.isLoggedIn &&
         <li>
             <NavLink to="/auth">LOGIN</NavLink>
         </li>
         }
         {auth.isLoggedIn &&
-            <li>
-                <NavLink to="/posts/new">ADD POST</NavLink>
-            </li>
+        <li>
+            <NavLink to="/posts/new">ADD POST</NavLink>
+        </li>
         }
     </ul>
 }
