@@ -7,6 +7,16 @@ export const useAuth = () => {
     const [userId, setUserId] = useState(null)
     const [isAdmin, setIsAdmin] = useState(false)
 
+
+    const logout = useCallback(() => {
+        setToken(null);
+        setTokenExpirationDate(null)
+        setUserId(null)
+        setIsAdmin(false)
+        localStorage.removeItem('userData')
+    }, [])
+
+
     const login = useCallback((uid, token,  isAdmin, expirationDate) => {
         setToken(token);
         setUserId(uid);
@@ -23,13 +33,14 @@ export const useAuth = () => {
 
     }, [])
 
-    const logout = useCallback(() => {
-        setToken(null);
-        setTokenExpirationDate(null)
-        setUserId(null)
-        setIsAdmin(false)
-        localStorage.removeItem('userData')
-    }, [])
+    useEffect(() => {
+        const storedData = JSON.parse(localStorage.getItem('userData'));
+        if (storedData &&
+            storedData.token &&
+            new Date(storedData.expiration) > new Date()) {
+            login(storedData.userId, storedData.token, storedData.isAdmin, new Date(storedData.expiration))
+        }
+    }, [login])
 
     useEffect(() => {
         if (token && tokenExpirationDate) {
@@ -39,15 +50,6 @@ export const useAuth = () => {
             clearTimeout(logoutTimer)
         }
     }, [token, logout, tokenExpirationDate])
-
-    useEffect(() => {
-        const storedData = JSON.parse(localStorage.getItem('userData'));
-        if (storedData &&
-            storedData.token &&
-            new Date(storedData.expiration) > new Date()) {
-            login(storedData.userId, storedData.token, storedData.isAdmin, new Date(storedData.expiration))
-        }
-    }, [login])
 
     return {token, login, logout, userId, isAdmin}
 }
