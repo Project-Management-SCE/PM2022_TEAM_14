@@ -91,7 +91,7 @@ const PostItem = props => {
                         <img src={props.image} alt={props.title}/>
                     </div>
                     <div className='place-item-actions'>
-                        <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
+                        {/* <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button> */}
                         {auth.userId === props.creatorId &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
                         {(auth.userId === props.creatorId || auth.isAdmin) && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
                     </div>

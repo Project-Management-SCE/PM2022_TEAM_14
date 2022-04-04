@@ -9,5 +9,20 @@ const router = express.Router();
 // Order matters !!!
 router.get('/', postsControllers.getAllPosts)
 
+router.use(checkAuth)
+
+router.post('/',
+    [
+      check('title')
+          .not()
+          .isEmpty(),
+        check('description')
+            .isLength({min: 5}),
+        check('address')
+            .not()
+            .isEmpty()
+
+    ],
+    postsControllers.createPost)
 
 module.exports = router;

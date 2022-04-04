@@ -31,7 +31,7 @@ const PostList = props => {
                 creatorId={place.creator.id}
                 creatorName={place.creator.name}
                 creatorImage={place.creator.image}
-                coordinate={place.location}
+                // coordinate={place.location}
                 onDelete={props.onDelete}
                 />
         })}
