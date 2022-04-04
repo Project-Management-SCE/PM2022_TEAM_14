@@ -34,15 +34,6 @@ export const useAuth = () => {
     }, [])
 
     useEffect(() => {
-        if (token && tokenExpirationDate) {
-            const timeLeft = tokenExpirationDate.getTime() - new Date().getTime()
-            logoutTimer = setTimeout(logout, timeLeft)
-        } else {
-            clearTimeout(logoutTimer)
-        }
-    }, [token, logout, tokenExpirationDate])
-
-    useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem('userData'));
         if (storedData &&
             storedData.token &&
@@ -50,6 +41,15 @@ export const useAuth = () => {
             login(storedData.userId, storedData.token, storedData.isAdmin, new Date(storedData.expiration))
         }
     }, [login])
+
+    useEffect(() => {
+        if (token && tokenExpirationDate) {
+            const timeLeft = tokenExpirationDate.getTime() - new Date().getTime()
+            logoutTimer = setTimeout(logout, timeLeft)
+        } else {
+            clearTimeout(logoutTimer)
+        }
+    }, [token, logout, tokenExpirationDate])
 
     return {token, login, logout, userId, isAdmin}
 }
