@@ -28,12 +28,12 @@ const createPost = async (req, res, next) => {
 
     const {title, description, address, category} = req.body;
 
-    let location
-    try{
-      location  = await getCoordinates(address);
-    }catch (e) {
-        return next(e)
-    }
+    // let location
+    // try{
+    //   location  = await getCoordinates(address);
+    // }catch (e) {
+    //     return next(e)
+    // }
 
 
     let user;
@@ -60,7 +60,7 @@ const createPost = async (req, res, next) => {
         description,
         address,
         category,
-        location,
+        // location,
         image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/City_Lights_%2833522578970%29.jpg/1024px-City_Lights_%2833522578970%29.jpg?1646766503738',
         creator : {id: req.userData.userId, name: user.name, image: user.image}
 
