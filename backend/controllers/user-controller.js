@@ -142,6 +142,22 @@ const login = async (req, res, next) => {
     )
 }
 
+const getUserData = async (req, res, next) => {
+    const userId = req.params.uid;
+    let user;
+    try {
+        user = await User.findById(userId,'-password');
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch user", 500
+        )
+        return next(error)
+    }
+
+    res.json({user: user.toObject({getters: true})});
+}
+
+exports.getUserData = getUserData;
 exports.signup = signup;
 exports.login = login;
 

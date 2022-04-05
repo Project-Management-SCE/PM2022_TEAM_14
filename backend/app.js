@@ -19,11 +19,6 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/api' , (req, res, next)=> {
-    res.json({ message :'Welcome to awesome server !!!!'})
-})
-
-
 app.use('/api/posts' ,postsRoutes); // => /api/posts ....
 app.use('/api/users' ,usersRoutes); // => /api/users ....
 

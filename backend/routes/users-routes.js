@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 
 const usersControllers = require("../controllers/user-controller");
 const router = express.Router();
+const checkAuth = require("../middleware/check-auth");
 
 // Order matters !!!
 router.post(
@@ -13,5 +14,8 @@ router.post(
   usersControllers.signup
 );
 router.post("/login", usersControllers.login);
+
+router.use(checkAuth)
+router.get('/:uid', usersControllers.getUserData)
 
 module.exports = router;
