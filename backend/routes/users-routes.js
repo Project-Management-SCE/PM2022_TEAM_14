@@ -15,7 +15,8 @@ router.post(
 );
 router.post("/login", usersControllers.login);
 
-router.use(checkAuth)
-router.get('/:uid', usersControllers.getUserData)
+router.use(checkAuth);
+router.delete("/:uid", usersControllers.deleteUser);
+router.get("/:uid", usersControllers.getUserData);
 
 module.exports = router;
