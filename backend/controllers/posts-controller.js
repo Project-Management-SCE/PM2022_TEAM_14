@@ -86,6 +86,72 @@ const createPost = async (req, res, next) => {
     res.status(201).json({post: newPost})
 };
 
+const deletePost = async (req, res, next) => {
+    const postId = req.params.postId;
+
+    let post;
+    try {
+        post = await Post.findById(postId).populate({path: "creator",
+                                                populate: {path: "id"}});
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts", 500
+        )
+        return next(error)
+    }
+
+    if(!post) {
+        const error = new HttpError(
+            "Could not find posts ", 404
+        )
+        return next(error)
+    }
+
+
+    let user;
+    try {
+        user = await User.findById(req.userData.userId);
+    }catch (e) {
+        const error = new HttpError(
+            'Creating post failed',
+            500
+        );
+        return next(error);
+    }
+
+    if(!user) {
+        const error = new HttpError(
+            'Could not find user , creator with provided id',
+            500
+        );
+        return next(error);
+    }
+
+    if(!user.isAdmin && post.creator.id.id.toString() !== req.userData.userId) {
+        const error = new HttpError(
+            "You have no permissions to delete the post", 401
+        )
+        return next(error)
+    }
+
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await post.remove({session: sess});
+        post.creator.id.posts.pull(post);
+        await post.creator.id.save({session: sess,  validateModifiedOnly: true})
+        await sess.commitTransaction();
+    }catch (e) {
+       console.log(e)
+        const error = new HttpError(
+            "Could not delete post", 500
+        )
+        return next(error)
+    }
+
+    res.status(200).json({message: 'Post was successful deleted'})
+}
+
 exports.getAllPosts = getAllPosts;
 exports.createPost = createPost;
-
+exports.deletePost = deletePost;
