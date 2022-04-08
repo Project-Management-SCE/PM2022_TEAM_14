@@ -19,6 +19,28 @@ const getAllPosts = async (req, res, next) => {
     res.json({posts : posts.map(post => post.toObject({getters: true}))});
 }
 
+const getPostByUserId = async (req, res, next) => {
+    const userId = req.params.uid;
+
+    let userWithPost;
+    try{
+        userWithPost = await User.findById(userId).populate('posts')
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts ", 500
+        )
+        return next(error)
+    }
+
+
+    if(!userWithPost || userWithPost.posts.length === 0) {
+        return next(
+            new HttpError("Couldn't  find post for the provided user id", 404)
+        )
+    }
+
+    res.json({posts : userWithPost.posts.map(post => post.toObject({getters: true}))});
+}
 
 const createPost = async (req, res, next) => {
     const errors = validationResult(req);
@@ -153,5 +175,6 @@ const deletePost = async (req, res, next) => {
 }
 
 exports.getAllPosts = getAllPosts;
+exports.getPostByUserId = getPostByUserId;
 exports.createPost = createPost;
 exports.deletePost = deletePost;
