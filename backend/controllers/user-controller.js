@@ -157,7 +157,34 @@ const getUserData = async (req, res, next) => {
     res.json({user: user.toObject({getters: true})});
 }
 
+const deleteUser = async (req, res, next) => {
+    const userId = req.params.uid
+
+    let user;
+    try {
+        user = await User.findById(userId,'-password')
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch user", 500
+        )
+        return next(error)
+    }
+
+    try {
+        await user.remove();
+    }catch (e) {
+        const error = new HttpError(
+            "Could not delete user", 500
+        )
+        return next(error)
+    }
+
+    res.status(200).json({message: 'User was successful deleted'})
+}
+
+
 exports.getUserData = getUserData;
 exports.signup = signup;
 exports.login = login;
+exports.deleteUser = deleteUser;
 
