@@ -8,18 +8,17 @@ import Map from "../../shared/components/UIElements/Map/Map";
 
 
 import './PostItem.css'
-import Avatar from "../../shared/components/UIElements/Avatar/Avatar";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
-import {useHttpClient} from "../../shared/hooks/http-hook";
 import {Link} from "react-router-dom";
+import Avatar from "../../shared/components/UIElements/Avatar/Avatar";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 
 
 const PostItem = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(AuthContext);
     const [showConfirm, setShowConfirm] = useState(false);
-
     const closeConfirmHandler = () => setShowConfirm(false);
     const openConfirmHandler = () => setShowConfirm(true);
 
