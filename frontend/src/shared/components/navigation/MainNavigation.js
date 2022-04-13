@@ -35,7 +35,9 @@ const MainNavigation = props => {
                     <span/>
                 </button>
                 <h1 className="main-navigation-title">
-                    <Link to="/">Posts</Link>
+                    <Link to="/">
+                    <FontAwesomeIcon icon="fas fa-home" />
+                    </Link>
                 </h1>
                 <nav className="main-navigation-header-nav">
                     <NavLinks/>
