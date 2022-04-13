@@ -58,6 +58,8 @@ const deletePost = async (req, res, next) => {
         return next(error)
     }
 
+
+
     if(!post) {
         const error = new HttpError(
             "Could not find posts ", 404
@@ -86,6 +88,13 @@ const deletePost = async (req, res, next) => {
     }
 
    
+    if(!user.isAdmin && post.creator.id.id.toString() !== req.userData.userId) {
+        const error = new HttpError(
+            "You have no permissions to delete the post", 401
+        )
+        return next(error)
+    }
+
     try {
         const sess = await mongoose.startSession();
         sess.startTransaction();
