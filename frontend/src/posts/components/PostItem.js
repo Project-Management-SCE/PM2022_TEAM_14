@@ -1,27 +1,25 @@
 import React, {useState, useContext} from "react";
-import {AuthContext} from "../../shared/context/auth-context";
-import Modal from "../../shared/components/UIElements/Modal/Modal";
 import Card from "../../shared/components/UIElements/Card/Card";
 import Button from "../../shared/components/FormElements/Button";
-import Map from "../../shared/components/UIElements/Map/Map";
-
+import Modal from "../../shared/components/UIElements/Modal/Modal";
+import {AuthContext} from "../../shared/context/auth-context";
 
 
 import './PostItem.css'
-import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
-import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
-import {Link} from "react-router-dom";
-import Avatar from "../../shared/components/UIElements/Avatar/Avatar";
 import {useHttpClient} from "../../shared/hooks/http-hook";
+import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
+import Avatar from "../../shared/components/UIElements/Avatar/Avatar";
+import {Link, useHistory} from "react-router-dom";
 
 
 const PostItem = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(AuthContext);
     const [showConfirm, setShowConfirm] = useState(false);
-    const closeConfirmHandler = () => setShowConfirm(false);
+    const history = useHistory();
     const openConfirmHandler = () => setShowConfirm(true);
-
+    const closeConfirmHandler = () => setShowConfirm(false);
     const confirmDeleteHandler = async () => {
         closeConfirmHandler();
         try {
@@ -30,16 +28,18 @@ const PostItem = props => {
                 null,
                 {Authorization: 'Bearer ' + auth.token}
             )
-            props.onDelete(props.id);
         }catch (e) {
 
+        }
+        finally {
+            history.push('/'); // redirect
+            history.go(0)
         }
     }
 
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
-
 
             <Modal
                 show={showConfirm}
@@ -79,8 +79,6 @@ const PostItem = props => {
                         <img src={props.image} alt={props.title}/>
                     </div>
                     <div className='place-item-actions'>
-                        {/* <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button> */}
-                        {/*{auth.userId === props.creatorId &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}*/}
                         {(auth.userId === props.creatorId || auth.isAdmin) && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
                     </div>
                 </Card>
