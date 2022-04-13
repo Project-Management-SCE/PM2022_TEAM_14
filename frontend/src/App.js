@@ -60,11 +60,11 @@ const App = () => {
                 </Route>
 
                 <Route path="/posts/new" exact={true}>
-
+                    <NewAdminPost/>
                 </Route>
 
                 <Route path="/posts/:postId" exact={true}>
-
+                    <UpdateAdminPost/>
                 </Route>
 
                 <Redirect to='/'/>
