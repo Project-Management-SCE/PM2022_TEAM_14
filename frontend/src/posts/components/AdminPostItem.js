@@ -43,6 +43,20 @@ const AdminPostItem = props => {
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
 
+            <Modal
+                show={showConfirm}
+                onCancel={closeConfirmHandler}
+                header="Delete your post?"
+                contentClass="place-item-modal-content"
+                footerClass="place-item-modal-actions"
+                footer={
+                    <React.Fragment>
+                        <Button inverse onClick={closeConfirmHandler}>Cancel</Button>
+                        <Button  danger onClick={confirmDeleteHandler}>DELETE</Button>
+                    </React.Fragment>
+                }>
+                <p>Post can't be restored</p>
+            </Modal>
 
 
                 <Card className='place-item-content'>
