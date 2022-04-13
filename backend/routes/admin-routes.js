@@ -27,4 +27,6 @@ router.patch('/post/:postId',
         .isLength({min: 5}),
   adminController.updateAdminPost)
 
+router.delete('/post/:postId', adminController.deleteAdminPost)
+
 module.exports = router;

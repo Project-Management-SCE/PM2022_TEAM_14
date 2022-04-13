@@ -146,6 +146,68 @@ const updateAdminPost = async (req, res, next) => {
     res.status(200).json({post: adminPost.toObject({getters : true})})
 }
 
+const deleteAdminPost = async (req, res, next) => {
+    const postId = req.params.postId;
+
+    let adminPost;
+    try {
+        adminPost = await AdminPost.findById(postId);
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts", 500
+        )
+        return next(error)
+    }
+
+    if(!adminPost) {
+        const error = new HttpError(
+            "Could not find posts ", 404
+        )
+        return next(error)
+    }
+
+
+    let user;
+    try {
+        user = await User.findById(req.userData.userId);
+    }catch (e) {
+        const error = new HttpError(
+            'Creating post failed',
+            500
+        );
+        return next(error);
+    }
+
+    if(!user) {
+        const error = new HttpError(
+            'Could not find user , creator with provided id',
+            500
+        );
+        return next(error);
+    }
+
+    if(!user.isAdmin) {
+        const error = new HttpError(
+            "You have no permissions to delete the post", 401
+        )
+        return next(error)
+    }
+
+    try {
+        await adminPost.remove();
+    }catch (e) {
+        console.log(e)
+        const error = new HttpError(
+            "Could not delete post", 500
+        )
+        return next(error)
+    }
+
+    res.status(200).json({message: 'Post was successful deleted'})
+}
+
+
 exports.getAdminPost = getAdminPost;
 exports.createAdminPost = createAdminPost;
 exports.updateAdminPost = updateAdminPost;
+exports.deleteAdminPost= deleteAdminPost;
