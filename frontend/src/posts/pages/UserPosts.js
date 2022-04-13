@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import PostList from "../components/PostList";
 import {useHistory, useParams} from "react-router-dom";
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 
 
 const UserPosts = props => {

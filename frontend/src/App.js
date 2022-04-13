@@ -6,6 +6,10 @@ import {useAuth} from "./shared/hooks/auth-hook";
 import AllPosts from "./posts/pages/AllPosts";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import NewPost from "./posts/pages/NewPost";
+import NewAdminPost from "./posts/pages/NewAdminPost";
+import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
+import Profile from "./users/pages/Profile";
+import UserPosts from "./posts/pages/UserPosts";
 
 
 
@@ -22,11 +26,11 @@ const App = () => {
                 </Route>
 
                 <Route path="/users/:userId">
-
+                    <Profile/>
                 </Route>
 
                 <Route path="/:userId/posts">
-
+                    <UserPosts/>
                 </Route>
 
                 <Route path="/posts/new" exact={true}>
@@ -52,11 +56,11 @@ const App = () => {
                 </Route>
 
                 <Route path="/users/:userId">
-
+                    <Profile/>
                 </Route>
 
                 <Route path="/:userId/posts">
-
+                    <UserPosts/>
                 </Route>
 
                 <Route path="/posts/new" exact={true}>

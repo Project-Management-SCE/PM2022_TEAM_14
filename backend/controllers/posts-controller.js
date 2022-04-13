@@ -1,6 +1,8 @@
-
+const {validationResult} = require('express-validator')
 const HttpError = require("../models/http-error");
 const Post = require('../models/post')
+const User = require('../models/user');
+const mongoose = require("mongoose");
 
 
 
@@ -123,6 +125,7 @@ const createPost = async (req, res, next) => {
     try {
         user = await User.findById(req.userData.userId);
     }catch (e) {
+
         const error = new HttpError(
             'Creating post failed',
             500
@@ -143,7 +146,6 @@ const createPost = async (req, res, next) => {
         description,
         address,
         category,
-        // location,
         image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/City_Lights_%2833522578970%29.jpg/1024px-City_Lights_%2833522578970%29.jpg?1646766503738',
         creator : {id: req.userData.userId, name: user.name, image: user.image}
 

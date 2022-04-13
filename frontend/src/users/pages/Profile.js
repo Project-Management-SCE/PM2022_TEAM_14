@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import UsersItem from "../components/UsersItem";

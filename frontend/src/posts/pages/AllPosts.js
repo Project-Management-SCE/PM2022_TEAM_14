@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import PostList from "../components/PostList";
-import {useHttpClient} from "../../shared/hoooks/http-hook";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import AdminPostItem from "../components/AdminPostItem";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 
 
 const AllPosts = props => {

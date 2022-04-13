@@ -63,6 +63,7 @@ const createAdminPost = async (req, res, next) => {
     })
 
     try{
+        AdminPost.deleteMany({}, ()=> {});
         await newAdminPost.save();
     }catch (e) {
         const error = new HttpError(
