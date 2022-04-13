@@ -18,7 +18,25 @@ const AdminPostItem = props => {
     const auth = useContext(AuthContext);
     const [showConfirm, setShowConfirm] = useState(false);
 
+    const history = useHistory();
+    const openConfirmHandler = () => setShowConfirm(true);
+    const closeConfirmHandler = () => setShowConfirm(false);
+    const confirmDeleteHandler = async () => {
+        closeConfirmHandler();
+        try {
+            await sendRequest(`http://localhost:5000/api/admin/post/${props.id}`,
+                'DELETE',
+                null,
+                {Authorization: 'Bearer ' + auth.token}
+            )
+        }catch (e) {
 
+        }finally {
+            history.push('/'); // redirect
+            history.go(0)
+
+        }
+    }
 
 
     return (
@@ -35,6 +53,10 @@ const AdminPostItem = props => {
                     </div>
                     <div className='place-item-image'>
                         <img src={props.image} alt={props.title}/>
+                    </div>
+                    <div className='place-item-actions'>
+                        {auth.isAdmin &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
+                        {auth.isAdmin && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
                     </div>
                 </Card>
         </React.Fragment>
