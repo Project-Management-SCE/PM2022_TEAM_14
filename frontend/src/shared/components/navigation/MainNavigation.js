@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../UIElements/Backdrop/Backdrop";
-
+import HoneIcon from '../../../assets/home.png';
 import './MainNavigation.css';
 
 
@@ -36,7 +36,7 @@ const MainNavigation = props => {
                 </button>
                 <h1 className="main-navigation-title">
                     <Link to="/">
-                    <FontAwesomeIcon icon="fas fa-home" />
+                        <img src={HoneIcon}/>
                     </Link>
                 </h1>
                 <nav className="main-navigation-header-nav">
