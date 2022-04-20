@@ -26,4 +26,7 @@ router.post('/',
     ],
     postsControllers.createPost)
 
+
+router.delete('/:postId', postsControllers.deletePost)
+
 module.exports = router;
