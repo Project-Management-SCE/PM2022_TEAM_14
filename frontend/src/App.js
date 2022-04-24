@@ -10,6 +10,7 @@ import NewAdminPost from "./posts/pages/NewAdminPost";
 import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
 import Profile from "./users/pages/Profile";
 import UserPosts from "./posts/pages/UserPosts";
+import UpdatePost from "./posts/pages/UpdatePost";
 
 
 
@@ -38,7 +39,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/posts/:postId" exact={true}>
-
+                    <UpdatePost/>
                 </Route>
 
                 <Redirect to='/'/>
