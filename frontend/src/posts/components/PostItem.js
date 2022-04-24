@@ -80,6 +80,7 @@ const PostItem = props => {
                     </div>
                     <div className='place-item-actions'>
                         {(auth.userId === props.creatorId || auth.isAdmin) && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
+                        {auth.userId === props.creatorId &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
                     </div>
                 </Card>
             </li>
