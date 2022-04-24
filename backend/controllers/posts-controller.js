@@ -180,7 +180,51 @@ const createPost = async (req, res, next) => {
     res.status(201).json({post: newPost})
 };
 
+const updatePost = async (req, res, next) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        next(new HttpError(`Invalid inputs `, 422))
+    }
+
+    const {title, description} = req.body;
+    const postId = req.params.postId;
+
+    let post;
+    try {
+        post = await Post.findById(postId);
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts", 500
+        )
+        return next(error)
+    }
+
+    if(post.creator.id.toString() !== req.userData.userId) {
+        const error = new HttpError(
+            "You have no permissions to update the post", 401
+        )
+        return next(error)
+    }
+
+    post.title = title;
+    post.description = description;
+    
+    try{
+        await post.save()
+    }catch (e) {
+        const error = new HttpError(
+            'Updating post failed',
+            500
+        );
+        return next(error);
+    }
+
+    
+    res.status(200).json({post: post.toObject({getters : true})})
+}
+
 exports.getAllPosts = getAllPosts;
 exports.getPostByUserId = getPostByUserId;
 exports.createPost = createPost;
 exports.deletePost = deletePost;
+exports.updatePost = updatePost;
