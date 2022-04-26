@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
+import {Link, useHistory, useParams} from "react-router-dom";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
@@ -13,11 +14,17 @@ const Profile = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [userData, setUserData] = useState();
     const [showConfirm, setShowConfirm] = useState(false);
+    const history = useHistory();
+    const creatorId = useParams().userId;
 
     useEffect(()=> {
+        let id = auth.userId;
+        if(creatorId !== auth.userId) {
+            id = creatorId;
+        }
         const fetchUserData= async () => {
             try {
-                const data = await  sendRequest(`http://localhost:5000/api/users/${auth.userId}`,
+                const data = await  sendRequest(`http://localhost:5000/api/users/${id}`,
                     'GET',
                     null,
                     {Authorization: 'Bearer ' + auth.token});
@@ -43,6 +50,14 @@ const Profile = () => {
         }catch (e) {
 
         }
+    }
+
+    const showPostHandler = () => {
+        let id = auth.userId;
+        if(creatorId !== auth.userId) {
+            id = creatorId;
+        }
+        history.push(`/${id}/posts`);
     }
 
     return <React.Fragment>
@@ -73,7 +88,8 @@ const Profile = () => {
                 email={userData.email}
                 postCount={userData.posts.length}/>
             <div className={"user-profile-controls"}>
-                {auth.isLoggedIn && <Button danger onClick={openConfirmHandler}>DELETE PROFILE</Button>}
+                {auth.isLoggedIn && auth.userId === creatorId && <Button danger onClick={openConfirmHandler}>DELETE PROFILE</Button>}
+                {auth.isLoggedIn && <Button inverse onClick={showPostHandler}>SHOW POSTS</Button>}
             </div>
         </div>}
     </React.Fragment>

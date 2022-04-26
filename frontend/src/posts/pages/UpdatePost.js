@@ -3,11 +3,11 @@ import {useHistory, useParams} from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input/Input";
 import Button from "../../shared/components/FormElements/Button";
 import {VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE} from "../../shared/components/Utils/validators";
-import {useForm} from "../../shared/hoooks/form-hook";
+import {useForm} from "../../shared/hooks/form-hook";
 import Card from "../../shared/components/UIElements/Card/Card";
 
 import './PostForm.css';
-import {useHttpClient} from "../../shared/hoooks/http-hook";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import {AuthContext} from "../../shared/context/auth-context";
