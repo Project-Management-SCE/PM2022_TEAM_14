@@ -5,6 +5,19 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 
+const getUsers = async (req, res, next) => {
+    let users;
+    try {
+        users = await User.find({}, '-password');
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch users", 500
+        )
+        return next(error)
+    }
+
+    res.json({users: users.map(user => user.toObject({getters: true}))});
+}
 
 const signup = async (req, res, next) => {
     const errors = validationResult(req);
@@ -187,4 +200,5 @@ exports.getUserData = getUserData;
 exports.signup = signup;
 exports.login = login;
 exports.deleteUser = deleteUser;
+exports.getUsers = getUsers;
 
