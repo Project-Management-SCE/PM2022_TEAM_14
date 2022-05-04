@@ -186,6 +186,7 @@ const deleteUser = async (req, res, next) => {
         return next(error)
     }
 
+    
     try {
         await user.remove();
     }catch (e) {
