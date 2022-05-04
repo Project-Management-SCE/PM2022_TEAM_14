@@ -21,6 +21,7 @@ const Users = () => {
             }catch (e) {
             }
         }
+        
        fetchUsers();
     },[sendRequest])
 
