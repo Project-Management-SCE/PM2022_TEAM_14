@@ -11,6 +11,7 @@ import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
 import Profile from "./users/pages/Profile";
 import UserPosts from "./posts/pages/UserPosts";
 import UpdatePost from "./posts/pages/UpdatePost";
+import Users from "./users/pages/Users";
 
 
 
@@ -53,7 +54,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/users" exact={true}>
-
+                    <Users/>
                 </Route>
 
                 <Route path="/users/:userId">
