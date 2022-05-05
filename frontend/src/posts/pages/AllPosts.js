@@ -6,9 +6,22 @@ import {useHttpClient} from "../../shared/hooks/http-hook";
 
 
 const AllPosts = props => {
+    const [filter, setFilter] = useState("none");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPosts, setLoadedPosts] = useState();
     const [loadedAdminPost, setLoadedAdminPost] = useState();
+
+    const FilterType = [
+        { id: 1, label: "Select Category", value: "none" },
+        { id: 2, label: "Sport", value: "sport" },
+        { id: 3, label: "Politics", value: "politics" },
+        { id: 4, label: "Economics", value: "economics" },
+        { id: 5, label: "Culture", value: "culture" },
+    ];
+
+    const handleFilter = (value) => {
+        setFilter(value);
+    };
 
 
     useEffect(() => {
@@ -43,6 +56,7 @@ const AllPosts = props => {
             <LoadingSpinner/>
         </div>}
 
+       
         {!isLoading && loadedAdminPost &&
         <AdminPostItem
             id={loadedAdminPost?.id}
@@ -51,12 +65,21 @@ const AllPosts = props => {
             image={loadedAdminPost?.image}/>
         }
 
+        <div className="filters">
+            <Select items={FilterType} onChange={handleFilter} />
+        </div>
+
+
         {!isLoading && !loadedPosts &&
             <h2>No users posts available</h2>
         }
-        {!isLoading && loadedPosts &&
-             <PostList items={loadedPosts}/>
-        }
+        <PostList items={loadedPosts.filter((p)=>{
+                 if(filter !== 'none') {
+                     return p.category === filter;
+                 }else{
+                     return p;
+                 }
+             })}/>
     </React.Fragment>
 
 
