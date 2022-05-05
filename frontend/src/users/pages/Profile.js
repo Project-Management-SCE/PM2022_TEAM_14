@@ -90,6 +90,7 @@ const Profile = () => {
             <div className={"user-profile-controls"}>
                 {auth.isLoggedIn && auth.userId === creatorId && <Button danger onClick={openConfirmHandler}>DELETE PROFILE</Button>}
                 {auth.isLoggedIn && <Button inverse onClick={showPostHandler}>SHOW POSTS</Button>}
+                {auth.isLoggedIn && <Button to={`/update/${userData.id}`}>EDIT PROFILE</Button>}
             </div>
         </div>}
     </React.Fragment>
