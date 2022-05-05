@@ -3,12 +3,13 @@ import PostList from "../components/PostList";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import AdminPostItem from "../components/AdminPostItem";
 import {useHttpClient} from "../../shared/hooks/http-hook";
+import Select from "../../shared/components/FormElements/Select/Select";
 
 
 const AllPosts = props => {
     const [filter, setFilter] = useState("none");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
-    const [loadedPosts, setLoadedPosts] = useState();
+    const [loadedPosts, setLoadedPosts] = useState([]);
     const [loadedAdminPost, setLoadedAdminPost] = useState();
 
     const FilterType = [
@@ -65,7 +66,7 @@ const AllPosts = props => {
             image={loadedAdminPost?.image}/>
         }
 
-        <div className="filters">
+        <div className="filter">
             <Select items={FilterType} onChange={handleFilter} />
         </div>
 
