@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import Input from "../../shared/components/FormElements/Input/Input";
 import {VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE} from "../../shared/components/Utils/validators";
 import Button from "../../shared/components/FormElements/Button";
@@ -30,6 +30,7 @@ const NewPost = () => {
             value: '',
             isValid: false
         },
+
     },false)
 
     const FilterType = [
@@ -55,7 +56,7 @@ const NewPost = () => {
                    title: formState.inputs.title.value,
                    description : formState.inputs.description.value,
                    address : formState.inputs.address.value,
-                   category: formState.inputs.category.value
+                   category: filter
                }),
                {'Content-Type': 'application/json',
                Authorization: 'Bearer ' + auth.token}
