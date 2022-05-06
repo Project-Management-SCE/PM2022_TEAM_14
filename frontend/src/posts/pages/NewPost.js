@@ -67,6 +67,7 @@ const NewPost = () => {
        }
 
    }
+   
 
     return <React.Fragment>
         <ErrorModal error={error} onClear={clearError}/>
