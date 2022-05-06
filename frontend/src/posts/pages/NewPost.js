@@ -10,8 +10,10 @@ import {useHistory} from "react-router-dom";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 import {useForm} from "../../shared/hooks/form-hook";
 import './PostForm.css';
+import Select from "../../shared/components/FormElements/Select/Select";
 
 const NewPost = () => {
+    const [filter, setFilter] = useState("none");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(AuthContext)
 
@@ -28,11 +30,20 @@ const NewPost = () => {
             value: '',
             isValid: false
         },
-        category: {
-            value: '',
-            isValid: false
-        }
+
     },false)
+
+    const FilterType = [
+        { id: 1, label: "Select Category", value: "none" },
+        { id: 2, label: "Sport", value: "sport" },
+        { id: 3, label: "Politics", value: "politics" },
+        { id: 4, label: "Economics", value: "economics" },
+        { id: 5, label: "Culture", value: "culture" },
+    ];
+
+    const handleFilter = (value) => {
+        setFilter(value);
+    };
 
    const history = useHistory();
 
@@ -45,7 +56,7 @@ const NewPost = () => {
                    title: formState.inputs.title.value,
                    description : formState.inputs.description.value,
                    address : formState.inputs.address.value,
-                   category: formState.inputs.category.value
+                   category: filter
                }),
                {'Content-Type': 'application/json',
                Authorization: 'Bearer ' + auth.token}
@@ -78,13 +89,7 @@ const NewPost = () => {
                 onInput={inputChangeHandler}
                 errorText="Please enter a valid description."/>
 
-            <Input
-                id="category"
-                element='textarea'
-                label='Category'
-                validators={[VALIDATOR_MINLENGTH(5)]}
-                onInput={inputChangeHandler}
-                errorText="Please enter a valid category."/>
+            <Select items={FilterType} onChange={handleFilter} />
 
             <Input
                 id="address"
