@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest app.test.js  --forceExit --coverage --coverageDirectory=backend/output/coverage/jest",
+    "test": "jest app.test.js  --forceExit --coverage --coverageDirectory=output/coverage/jest",
     "start": "nodemon server.js"
   },
   "jest": {
