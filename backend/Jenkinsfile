@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
               sh "chmod +x -R ${env.WORKSPACE}"
-              sh './scripts/build.sh'
+              sh '.backend/scripts/build.sh'
             }
         }
 
@@ -42,7 +42,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh './scripts/deliver.sh'
+                sh '.backend/scripts/deliver.sh'
             }
 
         }
