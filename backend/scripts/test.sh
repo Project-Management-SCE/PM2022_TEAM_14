@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-ls
+cd backend
 set -x
 npm test
 set +x
