@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
 const usersRoutes = require('./routes/users-routes');
 const postsRoutes = require('./routes/posts-routes');
 const adminRoutes = require('./routes/admin-routes');
 const HttpError = require("./models/http-error");
-const mongoUrl = 'mongodb+srv://mike:QNQAmcQp59F9qrrt@cluster0.93nvw.mongodb.net/newsappprod?retryWrites=true&w=majority'
+
 
 const app = express();
 
@@ -40,10 +39,6 @@ app.use((error,req, res, next) => {
     res.json({message : error.message || 'Unknown error occurred'})
 })
 
-mongoose.
-connect(mongoUrl).
-then(()=>{
-    app.listen(5000);
-}).catch((err)=>{
-    console.log(err);
-})
+
+
+module.exports = app;

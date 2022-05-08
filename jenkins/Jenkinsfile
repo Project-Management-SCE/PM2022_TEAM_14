@@ -15,6 +15,28 @@ pipeline {
               sh './jenkins/scripts/build.sh'
             }
         }
+
+
+     stage('Test') {
+          steps {
+            script {
+              sh 'npm run test'
+            }
+          }
+          post {
+            always {
+              publishHTML target: [
+                allowMissing         : false,
+                alwaysLinkToLastBuild: false,
+                keepAll             : true,
+                reportDir            : 'output/coverage/jest',
+                reportFiles          : 'index.html',
+                reportName           : 'Test Report'
+              ]
+            }
+          }
+        }
+
         stage('Deliver') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
