@@ -32,7 +32,7 @@ pipeline {
                 allowMissing         : false,
                 alwaysLinkToLastBuild: false,
                 keepAll             : true,
-                reportDir            : '.backend/output/coverage/jest',
+                reportDir            : 'backend/output/coverage/jest',
                 reportFiles          : 'index.html',
                 reportName           : 'Test Report'
               ]
