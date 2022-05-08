@@ -8,7 +8,7 @@ describe("Integration Testing backend and frontend", () => {
 
     })
 
-    afterAll(async done => {
+    afterEach(async done => {
         // Closing the DB connection allows Jest to exit successfully.
         await server.close();
         done()
