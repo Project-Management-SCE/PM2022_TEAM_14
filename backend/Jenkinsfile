@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
               sh "chmod +x -R ${env.WORKSPACE}"
-              sh './jenkins/scripts/build.sh'
+              sh './scripts/build.sh'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
           steps {
             script {
               sh "chmod +x -R ${env.WORKSPACE}"
-              sh  'npm run'
+              sh  'npm run test'
             }
           }
           post {
@@ -41,7 +41,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh './jenkins/scripts/deliver.sh'
+                sh './scripts/deliver.sh'
             }
         }
     }
