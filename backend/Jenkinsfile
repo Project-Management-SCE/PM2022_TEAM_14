@@ -43,6 +43,7 @@ pipeline {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 sh './scripts/deliver.sh'
             }
+
         }
     }
 }
