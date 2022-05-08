@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-npm run
+ls
 set -x
 npm test
 set +x
