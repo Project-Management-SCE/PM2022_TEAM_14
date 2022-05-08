@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const app = require("./app");
 const mongoUrl = 'mongodb+srv://mike:QNQAmcQp59F9qrrt@cluster0.93nvw.mongodb.net/newsappprod?retryWrites=true&w=majority'
 
-open = () => {
+open = async () => {
         mongoose.
         connect(mongoUrl).
         then(()=>{
