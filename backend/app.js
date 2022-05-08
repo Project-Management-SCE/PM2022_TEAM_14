@@ -5,7 +5,6 @@ const postsRoutes = require('./routes/posts-routes');
 const adminRoutes = require('./routes/admin-routes');
 const HttpError = require("./models/http-error");
 
-
 const app = express();
 
 // middleware

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest app.test.js --coverage --coverageDirectory=output/coverage/jest",
+    "test": "jest app.test.js --coverage --coverageDirectory=output/coverage/jest --detectOpenHandles",
     "start": "nodemon server.js"
   },
   "jest": {
@@ -31,6 +31,6 @@
   },
   "devDependencies": {
     "supertest": "^6.2.3",
-    "jest": "^26.3.0"
+    "jest": "^26.4.2"
   }
 }
