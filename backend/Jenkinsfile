@@ -22,6 +22,7 @@ pipeline {
           steps {
             script {
               sh "chmod +x -R ${env.WORKSPACE}"
+              print "Environment will be : ${env.NODE_ENV}"
               sh  './backend/scripts/test.sh'
             }
           }

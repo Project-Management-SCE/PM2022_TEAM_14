@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 set -x
-npm run test
+npm test
 set +x
