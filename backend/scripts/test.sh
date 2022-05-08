@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-pwd
-
+npm run
 set -x
 npm test
 set +x
