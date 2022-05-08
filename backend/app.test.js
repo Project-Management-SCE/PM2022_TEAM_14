@@ -21,12 +21,21 @@ describe("Integration Testing backend and frontend", () => {
             expect(response.statusCode).toBe(200)
         })
 
+        test("Delete post without permissions should respond with a 401 status code", async (done) => {
+            const response = await request(app).delete("/api/posts/625723f2eb32216ea39da867")
+            expect(response.statusCode).toBe(403)
+            done()
+        })
+
+
 
         test("Update post without permissions should respond with a 403 status code", async (done) => {
             const response = await request(app).patch("/api/posts/625723f2eb32216ea39da867").send({title : 'test', description: 'test'})
             expect(response.statusCode).toBe(403)
             done()
         })
+
+
 
         test("Update not existing post should respond with a 403 status code", async (done) => {
             const response = await request(app).patch("/api/posts/6dsadasd").send({title : 'test', description: 'test'})
