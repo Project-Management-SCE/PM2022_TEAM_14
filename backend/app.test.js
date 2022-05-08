@@ -29,5 +29,15 @@ describe("Integration Testing backend and frontend", () => {
         })
     })
 
+    describe("Testing user routes ", () => {
+
+        test("Get all users without permissions should respond with a 403 status code", async (done) => {
+            const response = await request(app).get("/api/users")
+            expect(response.statusCode).toBe(403)
+            done()
+        })
+        
+    })
+
 })
 
