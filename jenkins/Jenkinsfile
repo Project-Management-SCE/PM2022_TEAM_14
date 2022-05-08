@@ -21,7 +21,7 @@ pipeline {
           steps {
             script {
               sh "chmod +x -R ${env.WORKSPACE}"
-              sh  'npm run app.test.js'
+              sh  'npm run'
             }
           }
           post {
