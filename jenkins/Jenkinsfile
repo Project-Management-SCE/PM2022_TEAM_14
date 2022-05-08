@@ -20,7 +20,8 @@ pipeline {
      stage('Test') {
           steps {
             script {
-              sh 'npm run app.test.js
+              sh "chmod +x -R ${env.WORKSPACE}"
+              sh  './backend npm run test'
             }
           }
           post {
