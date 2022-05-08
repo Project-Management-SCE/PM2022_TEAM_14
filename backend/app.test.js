@@ -19,7 +19,6 @@ describe("Integration Testing backend and frontend", () => {
         test("Get all posts should respond with a 200 status code", async (done) => {
             const response = await request(app).get("/api/posts")
             expect(response.statusCode).toBe(200)
-            done()
         })
 
 
