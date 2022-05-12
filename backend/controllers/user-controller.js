@@ -5,6 +5,19 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 
+const getUsers = async (req, res, next) => {
+    let users;
+    try {
+        users = await User.find({}, '-password');
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch users", 500
+        )
+        return next(error)
+    }
+
+    res.json({users: users.map(user => user.toObject({getters: true}))});
+}
 
 const signup = async (req, res, next) => {
     const errors = validationResult(req);
@@ -163,6 +176,9 @@ const deleteUser = async (req, res, next) => {
     let user;
     try {
         user = await User.findById(userId,'-password')
+        if (user.isAdmin){
+            res.status(200);
+        }
     }catch (e) {
         const error = new HttpError(
             "Could not fetch user", 500
@@ -170,6 +186,7 @@ const deleteUser = async (req, res, next) => {
         return next(error)
     }
 
+    
     try {
         await user.remove();
     }catch (e) {
@@ -182,9 +199,46 @@ const deleteUser = async (req, res, next) => {
     res.status(200).json({message: 'User was successful deleted'})
 }
 
+const updateUser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        next(new HttpError(`Invalid inputs `, 422))
+    }
+
+    const {name, email} = req.body;
+    const uid = req.params.uid;
+
+    let user;
+    try {
+        user = await User.findById(uid);
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch users", 500
+        )
+        return next(error)
+    }
+
+    user.name = name;
+    user.email = email;
+    
+    try{
+        await user.save()
+    }catch (e) {
+        const error = new HttpError(
+            'Updating user failed',
+            500
+        );
+        return next(error);
+    }
+
+    
+    res.status(200).json({user: user.toObject({getters : true})})
+}
 
 exports.getUserData = getUserData;
 exports.signup = signup;
 exports.login = login;
 exports.deleteUser = deleteUser;
+exports.getUsers = getUsers;
+exports.updateUser = updateUser;
 

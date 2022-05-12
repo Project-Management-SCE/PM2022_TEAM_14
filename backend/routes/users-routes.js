@@ -18,5 +18,12 @@ router.post("/login", usersControllers.login);
 router.use(checkAuth);
 router.delete("/:uid", usersControllers.deleteUser);
 router.get("/:uid", usersControllers.getUserData);
+router.get('/', usersControllers.getUsers)
+router.patch(
+  "/:uid",
+  check("name").not().isEmpty(),
+  check("email").not().isEmpty(),
+  usersControllers.updateUser
+);
 
 module.exports = router;

@@ -18,7 +18,7 @@ const getAllPosts = async (req, res, next) => {
         return next(error)
     }
 
-    res.json({posts : posts.map(post => post.toObject({getters: true}))});
+    res.status(200).json({posts : posts.map(post => post.toObject({getters: true}))});
 }
 
 const getPostByUserId = async (req, res, next) => {
@@ -112,7 +112,6 @@ const deletePost = async (req, res, next) => {
 
     res.status(200).json({message: 'Post was successful deleted'})
 }
-
 
 const createPost = async (req, res, next) => {
     const errors = validationResult(req);

@@ -1,0 +1,51 @@
+pipeline {
+    agent {
+        docker {
+            image 'node:lts-buster-slim'
+            args '-p 5000:5000'
+        }
+    }
+    environment {
+        CI = 'true'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+              sh "chmod +x -R ${env.WORKSPACE}"
+              sh './backend/scripts/build.sh'
+            }
+        }
+
+
+     stage('Test') {
+          steps {
+            script {
+              sh "chmod +x -R ${env.WORKSPACE}"
+              print "Environment will be : ${env.WORKSPACE}"
+              sh  './backend/scripts/test.sh'
+            }
+          }
+          post {
+            always {
+              publishHTML target: [
+                allowMissing         : false,
+                alwaysLinkToLastBuild: false,
+                keepAll             : true,
+                reportDir            : 'backend/output/coverage/jest',
+                reportFiles          : 'index.html',
+                reportName           : 'Test Report'
+              ]
+            }
+          }
+        }
+
+        stage('Deliver') {
+            steps {
+                sh "chmod +x -R ${env.WORKSPACE}"
+                sh './backend/scripts/deliver.sh'
+            }
+
+        }
+    }
+}

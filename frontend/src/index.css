@@ -40,3 +40,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.filters {
+  width: 80%;
+  height: 60px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px auto;
+}
+
+.filters input {
+  height: 36px;
+}
