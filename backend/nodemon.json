@@ -1,0 +1,8 @@
+{
+  "env": {
+    "DB_USER": "mike",
+    "DB_PASSWORD" : "QNQAmcQp59F9qrrt",
+    "DB_NAME" : "newsappprod",
+    "JWT_SECRET": "best_key"
+  }
+}
