@@ -33,7 +33,7 @@ const UpdateUser = () => {
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         try {
-            await sendRequest(`http://localhost:5000/api/users/${userId}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`,
                 'PATCH',
                 JSON.stringify({
                     email: formState.inputs.email.value,
@@ -52,7 +52,7 @@ const UpdateUser = () => {
     useEffect(() => {
         const fetchUser = async() => {
             try {
-                const data = await  sendRequest(`http://localhost:5000/api/users/${auth.userId}`,
+                const data = await  sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/${auth.userId}`,
                     'GET',
                     null,
                     {Authorization: 'Bearer ' + auth.token});

@@ -24,7 +24,7 @@ const Profile = () => {
         }
         const fetchUserData= async () => {
             try {
-                const data = await  sendRequest(`http://localhost:5000/api/users/${id}`,
+                const data = await  sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`,
                     'GET',
                     null,
                     {Authorization: 'Bearer ' + auth.token});
@@ -41,7 +41,7 @@ const Profile = () => {
     const confirmDeleteHandler = async () => {
         closeConfirmHandler();
         try {
-            await sendRequest(`http://localhost:5000/api/users/${auth.userId}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/${auth.userId}`,
                 'DELETE',
                 null,
                 {Authorization: 'Bearer ' + auth.token}
