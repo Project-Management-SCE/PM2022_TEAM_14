@@ -16,7 +16,7 @@ const UserPosts = props => {
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
-                const data = await sendRequest(`http://localhost:5000/api/posts/user/${userId}`);
+                const data = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts/user/${userId}`);
                 setLoadedPosts(data.posts)
             }catch (e) {
                 history.push('/');

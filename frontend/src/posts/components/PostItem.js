@@ -23,7 +23,7 @@ const PostItem = props => {
     const confirmDeleteHandler = async () => {
         closeConfirmHandler();
         try {
-            await sendRequest(`http://localhost:5000/api/posts/${props.id}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts/${props.id}`,
                 'DELETE',
                 null,
                 {Authorization: 'Bearer ' + auth.token}

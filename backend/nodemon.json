@@ -5,4 +5,8 @@
     "DB_NAME" : "newsappprod",
     "JWT_SECRET": "best_key"
   }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

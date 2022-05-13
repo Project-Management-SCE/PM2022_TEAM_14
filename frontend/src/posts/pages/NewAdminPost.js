@@ -31,7 +31,7 @@ const NewAdminPost = () => {
     const placeSubmitHandler = async event => {
         event.preventDefault();
         try {
-            await sendRequest(`http://localhost:5000/api/admin/post`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/admin/post`,
                 'POST',
                 JSON.stringify({
                     title: formState.inputs.title.value,

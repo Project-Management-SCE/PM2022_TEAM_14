@@ -34,7 +34,7 @@ const AllPosts = props => {
     useEffect(() => {
         const fetchAdminPost = async () => {
             try {
-                const data = await sendRequest(`http://localhost:5000/api/admin/post`);
+                const data = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/admin/post`);
                 setLoadedAdminPost(data.posts[0])
             }catch (e) {
 
@@ -47,7 +47,7 @@ const AllPosts = props => {
     useEffect(() => {
         const fetchPosts= async () => {
             try {
-                const data = await sendRequest(`http://localhost:5000/api/posts`);
+                const data = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts`);
                 setLoadedPosts(data.posts)
             }catch (e) {
 

@@ -32,7 +32,7 @@ const UpdateAdminPost = () => {
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         try {
-            await sendRequest(`http://localhost:5000/api/admin/post/${postId}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/admin/post/${postId}`,
                 'PATCH',
                 JSON.stringify({
                     title: formState.inputs.title.value,
@@ -52,7 +52,7 @@ const UpdateAdminPost = () => {
         const fetchPost = async() => {
             try {
                 const data = await sendRequest(
-                    `http://localhost:5000/api/admin/post`);
+                    `${process.env.REACT_APP_BACKEND_URL}/admin/post`);
                 setLoadedPost(data.posts[0])
 
                 setFormData(

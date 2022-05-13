@@ -22,7 +22,7 @@ const AdminPostItem = props => {
     const confirmDeleteHandler = async () => {
         closeConfirmHandler();
         try {
-            await sendRequest(`http://localhost:5000/api/admin/post/${props.id}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/admin/post/${props.id}`,
                 'DELETE',
                 null,
                 {Authorization: 'Bearer ' + auth.token}

@@ -50,7 +50,7 @@ const NewPost = () => {
    const placeSubmitHandler = async event => {
        event.preventDefault();
        try {
-           await sendRequest(`http://localhost:5000/api/posts`,
+           await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts`,
                'POST',
                JSON.stringify({
                    title: formState.inputs.title.value,

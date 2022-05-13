@@ -33,7 +33,7 @@ const UpdatePost = () => {
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         try {
-            await sendRequest(`http://localhost:5000/api/posts/${postId}`,
+            await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`,
                 'PATCH',
                 JSON.stringify({
                     title: formState.inputs.title.value,
@@ -53,7 +53,7 @@ const UpdatePost = () => {
         const fetchPost = async() => {
             try {
                 const data = await sendRequest(
-                    `http://localhost:5000/api/posts/${postId}`);
+                    `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`);
                 setLoadedPost(data.post)
 
                 setFormData(
