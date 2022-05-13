@@ -5,23 +5,19 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-
-const UserPosts = React.lazy(() => import("./posts/pages/UpdatePost"));
-const Auth = React.lazy(() => import("./users/pages/Auth"));
-const AuthContext = React.lazy(() => import("./shared/context/auth-context"));
-const useAuth = React.lazy(() => import("./shared/hooks/auth-hook"));
-const AllPosts = React.lazy(() => import("./posts/pages/AllPosts"));
-const MainNavigation = React.lazy(() =>
-  import("./shared/components/navigation/MainNavigation")
-);
-const NewPost = React.lazy(() => import("./posts/pages/NewPost"));
-const UpdatePost = React.lazy(() => import("./posts/pages/UpdatePost"));
-const NewAdminPost = React.lazy(() => import("./posts/pages/NewAdminPost"));
-const UpdateAdminPost = React.lazy(() =>
-  import("./posts/pages/UpdateAdminPost")
-);
-const Profile = React.lazy(() => import("./users/pages/Profile"));
-const UpdateUser = React.lazy(() => import("./users/pages/UpdateUser"));
+import {AuthContext} from "./shared/context/auth-context";
+import {useAuth} from "./shared/hooks/auth-hook";
+import AllPosts from "./posts/pages/AllPosts";
+import Profile from "./users/pages/Profile";
+import UserPosts from "./posts/pages/UserPosts";
+import NewPost from "./posts/pages/NewPost";
+import UpdatePost from "./posts/pages/UpdatePost";
+import UpdateUser from "./users/pages/UpdateUser";
+import NewAdminPost from "./posts/pages/NewAdminPost";
+import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
+import Auth from "./users/pages/Auth";
+import MainNavigation from "./shared/components/navigation/MainNavigation";
+import Users from "./users/pages/Users";
 
 const App = () => {
   const { token, login, logout, userId, isAdmin } = useAuth();
@@ -65,7 +61,9 @@ const App = () => {
           <AllPosts />
         </Route>
 
-        <Route path="/users" exact={true}></Route>
+        <Route path="/users" exact={true}>
+            <Users/>
+        </Route>
 
         <Route path="/users/:userId">
           <Profile />
@@ -93,7 +91,9 @@ const App = () => {
           <AllPosts />
         </Route>
 
-        <Route path="/:userId/posts"></Route>
+        <Route path="/:userId/posts">
+            <UserPosts />
+        </Route>
 
         <Route path="/auth" exact={true}>
           <Auth />
