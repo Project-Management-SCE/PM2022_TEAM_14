@@ -8,5 +8,3 @@ sleep 1
 echo $! > .pidfile
 set +x
 kill $(cat .pidfile)
-
-https://newsappprod.herokuapp.com/
