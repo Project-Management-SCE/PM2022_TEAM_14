@@ -7,11 +7,15 @@ import './NavLinks.css'
 const NavLinks = props => {
     const auth = useContext(AuthContext);
 
-
     return <ul className="nav-links">
         <li>
             <NavLink to="/" exact>ALL POSTS</NavLink>
         </li>
+        {auth.isLoggedIn && auth.isAdmin &&
+        <li>
+            <NavLink to={`/users`}>All USERS</NavLink>
+        </li>
+        }
         {auth.isLoggedIn &&
         <li>
             <NavLink to={`/users/${auth.userId}`}>MY PROFILE</NavLink>

@@ -12,6 +12,8 @@ import Profile from "./users/pages/Profile";
 import UserPosts from "./posts/pages/UserPosts";
 import UpdatePost from "./posts/pages/UpdatePost";
 import UpdateUser from "./users/pages/UpdateUser";
+import UsersList from "./users/components/UsersList";
+import Users from "./users/pages/Users";
 
 
 
@@ -58,7 +60,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/users" exact={true}>
-
+                    <Users/>
                 </Route>
 
                 <Route path="/users/:userId">
