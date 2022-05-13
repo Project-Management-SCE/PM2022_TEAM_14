@@ -3,7 +3,10 @@
 set -x
 pwd
 cd backend
-git add .
-git commit 'deploy'
-git push heroku master
-print "Link is : https://newsappprod.herokuapp.com/ "
+npm start &
+sleep 1
+echo $! > .pidfile
+set +x
+kill $(cat .pidfile)
+
+https://newsappprod.herokuapp.com/
