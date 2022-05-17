@@ -18,6 +18,7 @@ import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
 import Auth from "./users/pages/Auth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import Users from "./users/pages/Users";
+import Review from "./users/pages/Review";
 
 const App = () => {
   const { token, login, logout, userId, isAdmin } = useAuth();
@@ -51,6 +52,10 @@ const App = () => {
           <UpdateUser />
         </Route>
 
+        <Route path="/review" exact={true}>
+          <Review />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -81,6 +86,10 @@ const App = () => {
           <UpdateAdminPost />
         </Route>
 
+        <Route path="/review" exact={true}>
+          <Review />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -97,6 +106,10 @@ const App = () => {
 
         <Route path="/auth" exact={true}>
           <Auth />
+        </Route>
+
+        <Route path="/review" exact={true}>
+          <Review />
         </Route>
 
         <Redirect to="/auth" />
