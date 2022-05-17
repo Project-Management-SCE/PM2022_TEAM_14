@@ -1,126 +1,139 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import React, {useCallback, useEffect, useState} from 'react';
+import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
+import Auth from "./users/pages/Auth";
 import {AuthContext} from "./shared/context/auth-context";
 import {useAuth} from "./shared/hooks/auth-hook";
 import AllPosts from "./posts/pages/AllPosts";
-import Profile from "./users/pages/Profile";
-import UserPosts from "./posts/pages/UserPosts";
+import MainNavigation from "./shared/components/navigation/MainNavigation";
 import NewPost from "./posts/pages/NewPost";
-import UpdatePost from "./posts/pages/UpdatePost";
-import UpdateUser from "./users/pages/UpdateUser";
 import NewAdminPost from "./posts/pages/NewAdminPost";
 import UpdateAdminPost from "./posts/pages/UpdateAdminPost";
-import Auth from "./users/pages/Auth";
-import MainNavigation from "./shared/components/navigation/MainNavigation";
-import Users from "./users/pages/Users";
+import Profile from "./users/pages/Profile";
+import UserPosts from "./posts/pages/UserPosts";
+import UpdatePost from "./posts/pages/UpdatePost";
+import UpdateUser from "./users/pages/UpdateUser";
+import ReactWeather, { useOpenWeather } from 'react-open-weather';
+
+
 
 const App = () => {
-  const { token, login, logout, userId, isAdmin } = useAuth();
+    const {token, login, logout, userId, isAdmin} = useAuth()
 
-  let routes;
+    let routes;
 
-  if (token && !isAdmin) {
-    routes = (
-      <Switch>
-        <Route path="/" exact={true}>
-          <AllPosts />
-        </Route>
+    if (token && !isAdmin) {
+        routes = (
+            <Switch>
+                <Route path="/" exact={true}>
+                    <AllPosts/>
+                </Route>
 
-        <Route path="/users/:userId">
-          <Profile />
-        </Route>
+                <Route path="/users/:userId">
+                    <Profile/>
+                </Route>
 
-        <Route path="/:userId/posts">
-          <UserPosts />
-        </Route>
+                <Route path="/:userId/posts">
+                    <UserPosts/>
+                </Route>
 
-        <Route path="/posts/new" exact={true}>
-          <NewPost />
-        </Route>
+                <Route path="/posts/new" exact={true}>
+                    <NewPost/>
+                </Route>
 
-        <Route path="/posts/:postId" exact={true}>
-          <UpdatePost />
-        </Route>
+                <Route path="/posts/:postId" exact={true}>
+                    <UpdatePost/>
+                </Route>
 
-        <Route path="/update/:userId">
-          <UpdateUser />
-        </Route>
+                <Route path="/update/:userId">
+                    <UpdateUser/>
+                </Route>
 
-        <Redirect to="/" />
-      </Switch>
-    );
-  } else if (token && isAdmin) {
-    routes = (
-      <Switch>
-        <Route path="/" exact={true}>
-          <AllPosts />
-        </Route>
+                <Redirect to='/'/>
+            </Switch>
+        );
+    }else if(token && isAdmin) {
+        routes = (
+            <Switch>
+                <Route path="/" exact={true}>
+                    <AllPosts/>
+                </Route>
 
-        <Route path="/users" exact={true}>
-            <Users/>
-        </Route>
+                <Route path="/users" exact={true}>
 
-        <Route path="/users/:userId">
-          <Profile />
-        </Route>
+                </Route>
 
-        <Route path="/:userId/posts">
-          <UserPosts />
-        </Route>
+                <Route path="/users/:userId">
+                    <Profile/>
+                </Route>
 
-        <Route path="/posts/new" exact={true}>
-          <NewAdminPost />
-        </Route>
+                <Route path="/:userId/posts">
+                    <UserPosts/>
+                </Route>
 
-        <Route path="/posts/:postId" exact={true}>
-          <UpdateAdminPost />
-        </Route>
+                <Route path="/posts/new" exact={true}>
+                    <NewAdminPost/>
+                </Route>
 
-        <Redirect to="/" />
-      </Switch>
-    );
-  } else {
-    routes = (
-      <Switch>
-        <Route path="/" exact={true}>
-          <AllPosts />
-        </Route>
+                <Route path="/posts/:postId" exact={true}>
+                    <UpdateAdminPost/>
+                </Route>
 
-        <Route path="/:userId/posts">
-            <UserPosts />
-        </Route>
+                <Redirect to='/'/>
+            </Switch>
+        );
+    } else {
+        routes = (
+            <Switch>
+                <Route path="/" exact={true}>
+                    <AllPosts/>
+                </Route>
 
-        <Route path="/auth" exact={true}>
-          <Auth />
-        </Route>
+                <Route path="/:userId/posts">
 
-        <Redirect to="/auth" />
-      </Switch>
-    );
-  }
+                </Route>
 
-  return (
-    <AuthContext.Provider
-      value={{
+                <Route path="/auth" exact={true}>
+                    <Auth/>
+                </Route>
+
+                <Redirect to='/auth'/>
+            </Switch>
+        );
+    }
+
+    const { data, isLoading, errorMessage } = useOpenWeather({
+        key: '2cfd91ccaa7cba171f67648224f8fd26',
+        lat: '48.137154',
+        lon: '11.576124',
+        lang: 'en',
+        unit: 'metric', // values are (metric, standard, imperial)
+    });
+
+    return <AuthContext.Provider value={{
         isLoggedIn: !!token,
         token: token,
         userId,
         isAdmin,
         login,
-        logout,
-      }}
-    >
-      <Router>
-        <MainNavigation />
-        <main>{routes}</main>
-      </Router>
+        logout
+    }}>
+        <Router>
+            <MainNavigation/>
+            <main>{routes}</main>
+            <footer>
+                <ReactWeather
+                    isLoading={isLoading}
+                    errorMessage={errorMessage}
+                    data={data}
+                    lang="en"
+                    locationLabel="Munich"
+                    unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
+                    showForecast
+                />
+            </footer>
+        </Router>
     </AuthContext.Provider>
-  );
+
 };
 
 export default App;
