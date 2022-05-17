@@ -120,6 +120,17 @@ const App = () => {
         <Router>
             <MainNavigation/>
             <main>{routes}</main>
+            <footer>
+                <ReactWeather
+                    isLoading={isLoading}
+                    errorMessage={errorMessage}
+                    data={data}
+                    lang="en"
+                    locationLabel="Munich"
+                    unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
+                    showForecast
+                />
+            </footer>
         </Router>
     </AuthContext.Provider>
 
