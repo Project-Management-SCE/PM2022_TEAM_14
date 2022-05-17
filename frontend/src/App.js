@@ -12,6 +12,7 @@ import Profile from "./users/pages/Profile";
 import UserPosts from "./posts/pages/UserPosts";
 import UpdatePost from "./posts/pages/UpdatePost";
 import UpdateUser from "./users/pages/UpdateUser";
+import ReactWeather, { useOpenWeather } from 'react-open-weather';
 
 
 
@@ -100,6 +101,13 @@ const App = () => {
         );
     }
 
+    const { data, isLoading, errorMessage } = useOpenWeather({
+        key: '2cfd91ccaa7cba171f67648224f8fd26',
+        lat: '48.137154',
+        lon: '11.576124',
+        lang: 'en',
+        unit: 'metric', // values are (metric, standard, imperial)
+    });
 
     return <AuthContext.Provider value={{
         isLoggedIn: !!token,
