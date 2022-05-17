@@ -37,6 +37,7 @@ const PostItem = props => {
         }catch (e) {
 
         }
+        
         finally {
             history.push('/'); // redirect
             history.go(0)
