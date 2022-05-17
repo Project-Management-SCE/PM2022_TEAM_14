@@ -18,6 +18,12 @@ const PostItem = props => {
     const auth = useContext(AuthContext);
     const [showConfirm, setShowConfirm] = useState(false);
     const history = useHistory();
+
+    const shareHandler = () => {
+        const whatsAppURL = `https://wa.me?text=${window.location.href+'/posts/'+props.id}`;
+        window.open(whatsAppURL, '_blank')
+    }
+
     const openConfirmHandler = () => setShowConfirm(true);
     const closeConfirmHandler = () => setShowConfirm(false);
     const confirmDeleteHandler = async () => {
@@ -31,11 +37,14 @@ const PostItem = props => {
         }catch (e) {
 
         }
+        
         finally {
             history.push('/'); // redirect
             history.go(0)
         }
     }
+
+  
 
     return (
         <React.Fragment>
@@ -79,6 +88,7 @@ const PostItem = props => {
                         <img src={props.image} alt={props.title}/>
                     </div>
                     <div className='place-item-actions'>
+                        <Button inverse onClick={shareHandler}>SHARE</Button>
                         {(auth.userId === props.creatorId || auth.isAdmin) && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
                         {auth.userId === props.creatorId &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
                     </div>
