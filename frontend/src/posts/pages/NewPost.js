@@ -105,6 +105,14 @@ const NewPost = () => {
                 onInput={inputChangeHandler}
                 errorText="Please enter a valid address"/>
 
+            <Input
+                id="image"
+                element='input'
+                label='Image'
+                validators={[]}
+                onInput={inputChangeHandler}
+                errorText="Please enter a url"/>
+
             <Button type="submit" disabled={!formState.isValid}>ADD PLACE</Button>
         </form>
     </React.Fragment>
