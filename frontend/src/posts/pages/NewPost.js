@@ -30,6 +30,10 @@ const NewPost = () => {
             value: '',
             isValid: false
         },
+        image: {
+            value: '',
+            isValid: false
+        },
 
     },false)
 
@@ -56,7 +60,8 @@ const NewPost = () => {
                    title: formState.inputs.title.value,
                    description : formState.inputs.description.value,
                    address : formState.inputs.address.value,
-                   category: filter
+                   category: filter,
+                   image: formState.inputs.image.value
                }),
                {'Content-Type': 'application/json',
                Authorization: 'Bearer ' + auth.token}
