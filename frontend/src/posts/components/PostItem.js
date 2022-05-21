@@ -16,6 +16,7 @@ import {Link, useHistory} from "react-router-dom";
 const PostItem = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(AuthContext);
+    const [showMap, setShowMap] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const history = useHistory();
 
@@ -24,6 +25,8 @@ const PostItem = props => {
         window.open(whatsAppURL, '_blank')
     }
 
+    const openMapHandler = () => setShowMap(true);
+    const closeMapHandler = () => setShowMap(false);
     const openConfirmHandler = () => setShowConfirm(true);
     const closeConfirmHandler = () => setShowConfirm(false);
     const confirmDeleteHandler = async () => {
@@ -49,6 +52,18 @@ const PostItem = props => {
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
+
+            <Modal
+                show={showMap}
+                onCancel={closeMapHandler}
+                header={props.address}
+                contentClass="place-item-modal-content"
+                footerClass="place-item-modal-actions"
+                footer={<Button onClick={closeMapHandler}>CLOSE</Button>}>
+              <div className="map-container">
+                    <Map center={props.coordinate} zoom={16}/>
+              </div>
+            </Modal>
 
             <Modal
                 show={showConfirm}
@@ -88,6 +103,7 @@ const PostItem = props => {
                         <img src={props.image} alt={props.title}/>
                     </div>
                     <div className='place-item-actions'>
+                        <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
                         <Button inverse onClick={shareHandler}>SHARE</Button>
                         {(auth.userId === props.creatorId || auth.isAdmin) && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
                         {auth.userId === props.creatorId &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
