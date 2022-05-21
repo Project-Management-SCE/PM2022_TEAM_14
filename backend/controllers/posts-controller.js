@@ -119,7 +119,7 @@ const createPost = async (req, res, next) => {
         next(new HttpError(`Invalid inputs `, 422))
     }
 
-    const {title, description, address, category} = req.body;
+    const {title, description, address, category, image} = req.body;
 
     // let location
     // try{
@@ -154,7 +154,7 @@ const createPost = async (req, res, next) => {
         description,
         address,
         category,
-        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/City_Lights_%2833522578970%29.jpg/1024px-City_Lights_%2833522578970%29.jpg?1646766503738',
+        image : image || "",
         creator : {id: req.userData.userId, name: user.name, image: user.image}
 
     })
