@@ -121,12 +121,12 @@ const createPost = async (req, res, next) => {
 
     const {title, description, address, category, image} = req.body;
 
-    // let location
-    // try{
-    //   location  = await getCoordinates(address);
-    // }catch (e) {
-    //     return next(e)
-    // }
+    let location
+    try{
+      location  = await getCoordinates(address);
+    }catch (e) {
+        return next(e)
+    }
 
 
     let user;
