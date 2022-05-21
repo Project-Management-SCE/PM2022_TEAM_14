@@ -39,6 +39,11 @@ describe("Integration Testing backend and frontend", () => {
             const response = await request(app).patch("/api/posts/6dsadasd").send({title : 'test', description: 'test'})
             expect(response.statusCode).toBe(403)
         })
+
+        // test("User post should have location ", async () => {
+        //     const response = await request(app).patch("/api/posts/6dsadasd").send({title : 'test', description: 'test'})
+        //     expect(response.statusCode).toBe(403)
+        // })
     })
 
 
