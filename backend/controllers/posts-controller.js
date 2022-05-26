@@ -185,7 +185,7 @@ const updatePost = async (req, res, next) => {
         next(new HttpError(`Invalid inputs `, 422))
     }
 
-    const {title, description} = req.body;
+    const {title, description, image} = req.body;
     const postId = req.params.postId;
 
     let post;
@@ -207,6 +207,7 @@ const updatePost = async (req, res, next) => {
 
     post.title = title;
     post.description = description;
+    post.image = image || "";
     
     try{
         await post.save()
