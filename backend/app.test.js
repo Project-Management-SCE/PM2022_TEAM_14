@@ -21,7 +21,7 @@ describe("Integration Testing backend and frontend", () => {
         })
 
         test("Delete post without permissions should respond with a 401 status code", async () => {
-            const response = await request(app).delete("/api/posts/625723f2eb32216ea39da867")
+            const response = await request(app).delete("/api/posts/6290cd8e801b557910ee0288")
             expect(response.statusCode).toBe(403)
         })
 
@@ -31,7 +31,7 @@ describe("Integration Testing backend and frontend", () => {
         })
 
         test("Update post without permissions should respond with a 403 status code", async () => {
-            const response = await request(app).patch("/api/posts/625723f2eb32216ea39da867").send({title : 'test', description: 'test'})
+            const response = await request(app).patch("/api/posts/6290cd8e801b557910ee0288").send({title : 'test', description: 'test'})
             expect(response.statusCode).toBe(403)
         })
 
@@ -40,10 +40,25 @@ describe("Integration Testing backend and frontend", () => {
             expect(response.statusCode).toBe(403)
         })
 
-        // test("User post should have location ", async () => {
-        //     const response = await request(app).patch("/api/posts/6dsadasd").send({title : 'test', description: 'test'})
-        //     expect(response.statusCode).toBe(403)
-        // })
+        test("User post should have location ", async () => {
+            const response = await request(app).get("/api/posts");
+            expect(response.posts[0].location).toBe(expect.anything())
+        })
+
+        test("Update post with empty string should remove Image ", async () => {
+            const responseU = await request(app).post("/api/users/login").send({
+                email:'mike1@test.com',
+                password: 'mike11'})
+            expect(response.statusCode).toBe(201)
+
+            const response = await request(app).patch("/api/posts/6290cd8e801b557910ee0288").send({
+                title : 'test',
+                description: 'test',
+                image: '',
+                token: responseU.token})
+            expect(response.image).toBe('')
+        })
+
     })
 
 

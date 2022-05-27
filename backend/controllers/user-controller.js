@@ -144,7 +144,7 @@ const login = async (req, res, next) => {
         return next(error)
     }
 
-    res.json(
+    res.status(201).json(
         {   userId: existingUser.id,
             userName: existingUser.name,
             userImg: existingUser.image,

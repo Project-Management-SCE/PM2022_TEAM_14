@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import PostList from "../components/PostList";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import AdminPostItem from "../components/AdminPostItem";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 import Select from "../../shared/components/FormElements/Select/Select";
 import {AuthContext} from "../../shared/context/auth-context";
-
 
 const AllPosts = props => {
     const auth = useContext(AuthContext);
@@ -134,7 +133,7 @@ const AllPosts = props => {
             <div className={'apiNews'}>
                 <ul className="app-news-list">
                     {loadedExchange.map(o => {
-                        return <li>
+                        return <li key={o}>
                             <span>{o[0]}</span>
                             <span>{o[1]}</span>
                         </li>

@@ -3,7 +3,7 @@ const HttpError = require("../models/http-error");
 const Post = require('../models/post')
 const User = require('../models/user');
 const mongoose = require("mongoose");
-
+const getCoordinates = require('../utils/location')
 
 
 const getAllPosts = async (req, res, next) => {
@@ -154,6 +154,7 @@ const createPost = async (req, res, next) => {
         description,
         address,
         category,
+        location,
         image : image || "",
         creator : {id: req.userData.userId, name: user.name, image: user.image}
 
