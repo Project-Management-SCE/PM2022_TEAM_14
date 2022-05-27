@@ -4,9 +4,11 @@ import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSp
 import AdminPostItem from "../components/AdminPostItem";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 import Select from "../../shared/components/FormElements/Select/Select";
+import {AuthContext} from "../../shared/context/auth-context";
 
 
 const AllPosts = props => {
+    const auth = useContext(AuthContext);
     const [filter, setFilter] = useState("none");
     const [titleSearch, setTitleSearch] = useState("");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
@@ -59,6 +61,20 @@ const AllPosts = props => {
     }, [sendRequest])
 
 
+    useEffect(() => {
+        const fetchPosts= async () => {
+            if(auth.token) {
+                try {
+                    const data = await sendRequest('https://api.exchangerate.host/latest')
+                    setLoadedExchange(Object.entries(data.rates));
+                }catch (e) {
+                    console.log(e)
+                }
+            }
+        }
+        fetchPosts();
+    }, [sendRequest, auth.token])
+    
     return <React.Fragment>
         {isLoading && <div className="center">
             <LoadingSpinner/>
