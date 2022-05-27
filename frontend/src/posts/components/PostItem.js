@@ -11,6 +11,7 @@ import ErrorModal from "../../shared/components/UIElements/Error/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
 import Avatar from "../../shared/components/UIElements/Avatar/Avatar";
 import {Link, useHistory} from "react-router-dom";
+import Map from "../../shared/components/UIElements/Map/Map";
 
 
 const PostItem = props => {
