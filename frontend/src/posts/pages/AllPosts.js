@@ -12,6 +12,7 @@ const AllPosts = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPosts, setLoadedPosts] = useState([]);
     const [loadedAdminPost, setLoadedAdminPost] = useState();
+    const [loadedExchange, setLoadedExchange] = useState([]);
 
     const inputChangeHandler = (event) => {
         console.log('change ', event.target.value);
@@ -98,6 +99,20 @@ const AllPosts = props => {
                  }
              })}/>
         }
+
+        {!isLoading && loadedExchange &&
+            <div className={'apiNews'}>
+                <ul className="app-news-list">
+                    {loadedExchange.map(o => {
+                        return <li>
+                            <span>{o[0]}</span>
+                            <span>{o[1]}</span>
+                        </li>
+                    }) }
+                </ul>
+            </div>
+        }
+
     </React.Fragment>
 
 
