@@ -58,6 +58,20 @@ const AllPosts = props => {
         fetchPosts();
     }, [sendRequest])
 
+    useEffect(() => {
+        const fetchPosts= async () => {
+            if(auth.token) {
+                try {
+                    const data = await sendRequest('https://api.exchangerate.host/latest')
+                    setLoadedExchange(Object.entries(data.rates));
+                }catch (e) {
+                    console.log(e)
+                }
+            }
+        }
+        fetchPosts();
+    }, [sendRequest, auth.token])
+
 
     return <React.Fragment>
         {isLoading && <div className="center">
