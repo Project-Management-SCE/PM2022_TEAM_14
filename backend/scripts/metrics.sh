@@ -3,5 +3,5 @@
 pwd
 cd backend
 set -x
-npm metrics
+npm run metrics
 set +x
