@@ -20,6 +20,7 @@ import MainNavigation from "./shared/components/navigation/MainNavigation";
 import Users from "./users/pages/Users";
 import Review from "./users/pages/Review";
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
+import Stats from "./posts/pages/Stats";
 
 const App = () => {
   const { token, login, logout, userId, isAdmin } = useAuth();
@@ -57,6 +58,10 @@ const App = () => {
           <Review />
         </Route>
 
+          <Route path="/stats" exact={true}>
+              <Stats />
+          </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -91,6 +96,9 @@ const App = () => {
           <Review />
         </Route>
 
+          <Route path="/stats" exact={true}>
+              <Stats />
+          </Route>
 
         <Redirect to="/" />
       </Switch>

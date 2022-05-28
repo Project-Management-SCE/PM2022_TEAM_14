@@ -1,10 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
-import PostList from "../components/PostList";
 import LoadingSpinner from "../../shared/components/UIElements/Loading/LoadingSpinner";
-import AdminPostItem from "../components/AdminPostItem";
 import {useHttpClient} from "../../shared/hooks/http-hook";
-import Select from "../../shared/components/FormElements/Select/Select";
 import {AuthContext} from "../../shared/context/auth-context";
+import Card from "../../shared/components/UIElements/Card/Card";
 
 const Stats = props => {
     const auth = useContext(AuthContext);
@@ -21,7 +19,7 @@ const Stats = props => {
                 null,
                 {'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + auth.token});
-                setLoadedUsers(data)
+                setLoadedUsers(data.userRating)
             }catch (e) {
 
             }
@@ -55,17 +53,44 @@ const Stats = props => {
 
        
         {!isLoading && loadedPosts && loadedUsers &&
-        <div>
-              <Card className='place-item-content'>
-                <ul className="app-news-list">
-                    {loadedExchange.map(o => {
-                        return <li key={o}>
-                            <span>{o[0]}</span>
-                            <span>{o[1]}</span>
+        <div className={"stats-page"}>
+            <div className={'stats-item'}>
+                <Card>
+                    <div>Post By Category</div>
+                    <ul className="app-news-list">
+                        <li key={loadedPosts.sport}>
+                            <span>Sport:</span>
+                            <span>{loadedPosts.sport}</span>
                         </li>
-                    }) }
-                </ul>
-            </Card>
+                        <li key={loadedPosts.politic}>
+                            <span>Politic :</span>
+                            <span>{loadedPosts.politic}</span>
+                        </li>
+                        <li key={loadedPosts.economic}>
+                            <span>Economic:</span>
+                            <span>{loadedPosts.economic}</span>
+                        </li>
+                        <li key={loadedPosts.culture}>
+                            <span>Culture:</span>
+                            <span>{loadedPosts.culture}</span>
+                        </li>
+                    </ul>
+                </Card>
+            </div>
+
+            <div className={'stats-item'}>
+                <Card>
+                    <div>Users Posts</div>
+                    <ul className="app-news-list">
+                        {loadedUsers.map(o => {
+                            return <li key={o}>
+                                <span>{o.name}</span>
+                                <span>{o.posts} Posts</span>
+                            </li>
+                        }) }
+                    </ul>
+                </Card>
+            </div>
         </div>
         }
 

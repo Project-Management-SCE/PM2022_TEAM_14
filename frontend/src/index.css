@@ -102,3 +102,18 @@ body {
 .app-news-list li span{
   margin-left: 12px;
 }
+
+.stats-page {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 24px;
+}
+
+.stats-item {
+  width: 200px;
+  min-height: 300px;
+  height : auto;
+}
