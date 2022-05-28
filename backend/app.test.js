@@ -59,6 +59,20 @@ describe("Integration Testing backend and frontend", () => {
             expect(response.image).toBe('')
         })
 
+        test("Update post should be by its owner only ", async () => {
+            const responseU = await request(app).post("/api/users/login").send({
+                email:'mike2@test.com',
+                password: 'mike22'})
+            expect(response.statusCode).toBe(201)
+
+            const response = await request(app).patch("/api/posts/6290cd8e801b557910ee0288").send({
+                title : 'test',
+                description: 'test',
+                image: '',
+                token: responseU.token})
+            expect(response.statusCode).toBe(401)
+        })
+
     })
 
 

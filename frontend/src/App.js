@@ -19,6 +19,7 @@ import Auth from "./users/pages/Auth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import Users from "./users/pages/Users";
 import Review from "./users/pages/Review";
+import ReactWeather, { useOpenWeather } from 'react-open-weather';
 
 const App = () => {
   const { token, login, logout, userId, isAdmin } = useAuth();
@@ -116,6 +117,13 @@ const App = () => {
       </Switch>
     );
   }
+    const { data, isLoading, errorMessage } = useOpenWeather({
+        key: '2cfd91ccaa7cba171f67648224f8fd26',
+        lat: '48.137154',
+        lon: '11.576124',
+        lang: 'en',
+        unit: 'metric', // values are (metric, standard, imperial)
+    });
 
   return (
     <AuthContext.Provider
@@ -131,6 +139,17 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
+      <footer>
+          <ReactWeather
+              isLoading={isLoading}
+              errorMessage={errorMessage}
+              data={data}
+              lang="en"
+              locationLabel="Munich"
+              unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
+              showForecast
+          />
+      </footer>
       </Router>
     </AuthContext.Provider>
   );
