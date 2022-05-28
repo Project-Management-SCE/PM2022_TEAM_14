@@ -56,21 +56,23 @@ const AdminPostItem = props => {
                 <p>Post can't be restored</p>
             </Modal>
 
+                <div className={'admin-post'}>
+                    <Card className='place-item-content'>
+                        {isLoading && <LoadingSpinner asOverlay/>}
+                        <div className='place-item-info'>
+                            <h2>{props.title}</h2>
+                            <p>{props.description}</p>
+                        </div>
+                        <div className='place-item-image'>
+                            <img src={props.image} alt={props.title}/>
+                        </div>
+                        <div className='place-item-actions'>
+                            {auth.isAdmin &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
+                            {auth.isAdmin && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
+                        </div>
+                    </Card>
+                </div>
 
-                <Card className='place-item-content'>
-                    {isLoading && <LoadingSpinner asOverlay/>}
-                    <div className='place-item-info'>
-                        <h2>{props.title}</h2>
-                        <p>{props.description}</p>
-                    </div>
-                    <div className='place-item-image'>
-                        <img src={props.image} alt={props.title}/>
-                    </div>
-                    <div className='place-item-actions'>
-                        {auth.isAdmin &&  <Button to={`/posts/${props.id}`}>EDIT</Button>}
-                        {auth.isAdmin && <Button danger onClick={openConfirmHandler}>DELETE</Button>}
-                    </div>
-                </Card>
         </React.Fragment>
     )
 }

@@ -40,6 +40,29 @@ pipeline {
           }
         }
 
+         stage('Metrics') {
+                  steps {
+                    script {
+                      sh "chmod +x -R ${env.WORKSPACE}"
+                      print "Environment will be : ${env.WORKSPACE}"
+                      sh  './backend/scripts/metrics.sh'
+                    }
+                  }
+                  post {
+                    always {
+                      publishHTML target: [
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll             : true,
+                        reportDir            : 'backend/output/coverage2/jest',
+                        reportFiles          : 'index.html',
+                        reportName           : 'Metrics Report'
+                      ]
+                    }
+                  }
+                }
+
+
         stage('Deliver') {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"

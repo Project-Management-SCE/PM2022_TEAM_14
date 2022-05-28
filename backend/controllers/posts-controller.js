@@ -21,6 +21,28 @@ const getAllPosts = async (req, res, next) => {
     res.status(200).json({posts : posts.map(post => post.toObject({getters: true}))});
 }
 
+const getPostById = async (req, res, next) => {
+    const postId = req.params.postId;
+    let post;
+
+    try {
+        post = await Post.findById(postId);
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts", 500
+        )
+        return next(error)
+    }
+
+    if (!post) {
+        return next(
+            new HttpError("Couldn't  find post for the provided post id", 404)
+        )
+    }
+
+    res.json({post : post.toObject({getters: true})});
+}
+
 const getPostByUserId = async (req, res, next) => {
     const userId = req.params.uid;
 
@@ -224,8 +246,46 @@ const updatePost = async (req, res, next) => {
     res.status(200).json({post: post.toObject({getters : true})})
 }
 
+
+const postStats = async (req, res, next) => {
+    let posts;
+    try {
+        posts = await Post.find({});
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch posts", 500
+        )
+        return next(error)
+    }
+
+    const postsData = posts.map(post => post.toObject({getters: true}));
+
+
+    const sportC = postsData.filter(p => {
+        return p.category === 'sport'
+    }).length;
+
+    const politicsC = postsData.filter(p => {
+        return p.category === 'politics'
+    }).length;
+
+    const economicsC = postsData.filter(p => {
+        return p.category === 'economics'
+    }).length;
+
+    const cultureC = postsData.filter(p => {
+        return p.category === 'culture'
+    }).length;
+
+    res.status(200).json({sport : sportC, politic : politicsC, economic : economicsC, culture : cultureC});
+}
+
+
+
 exports.getAllPosts = getAllPosts;
 exports.getPostByUserId = getPostByUserId;
+exports.getPostById = getPostById;
 exports.createPost = createPost;
 exports.deletePost = deletePost;
 exports.updatePost = updatePost;
+exports.postStats = postStats;

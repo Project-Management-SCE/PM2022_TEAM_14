@@ -102,18 +102,18 @@ const AllPosts = props => {
             image={loadedAdminPost?.image}/>
         }
 
+
+        {!isLoading && loadedPosts &&
         <div className="filters">
-            <Select items={FilterType} onChange={handleFilter} />
+            <Select items={FilterType} onChange={handleFilter}/>
             <input
                 id="title"
                 type='text'
                 onInput={inputChangeHandler}/>
         </div>
-
-
-        {!isLoading && !loadedPosts &&
-            <h2>No users posts available</h2>
         }
+
+
         {!isLoading && loadedPosts &&
              <PostList items={loadedPosts.filter((p)=>{
                  if(filter !== 'none' && titleSearch) {

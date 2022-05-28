@@ -58,7 +58,7 @@ const UpdatePost = () => {
         const fetchPost = async() => {
             try {
                 const data = await sendRequest(
-                    `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`);
+                    `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`);
                 setLoadedPost(data.post)
 
                 setFormData(

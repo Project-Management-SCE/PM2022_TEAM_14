@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest app.test.js  --forceExit --coverage --coverageDirectory=output/coverage/jest",
+    "metrics" : "jest metrics.test.js  --forceExit --coverage --coverageDirectory=output/coverage2/jest",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

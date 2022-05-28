@@ -91,6 +91,7 @@ const App = () => {
           <Review />
         </Route>
 
+
         <Redirect to="/" />
       </Switch>
     );
@@ -119,8 +120,8 @@ const App = () => {
   }
     const { data, isLoading, errorMessage } = useOpenWeather({
         key: '2cfd91ccaa7cba171f67648224f8fd26',
-        lat: '48.137154',
-        lon: '11.576124',
+        lat: '31.0461',
+        lon: '34.8516',
         lang: 'en',
         unit: 'metric', // values are (metric, standard, imperial)
     });
@@ -139,13 +140,13 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
-      <footer>
+      <footer className={'weather'}>
           <ReactWeather
               isLoading={isLoading}
               errorMessage={errorMessage}
               data={data}
               lang="en"
-              locationLabel="Munich"
+              locationLabel="Israel"
               unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
               showForecast
           />

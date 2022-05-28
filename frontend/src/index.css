@@ -55,39 +55,48 @@ body {
   height: 36px;
 }
 
-footer {
+.weather{
   position: fixed;
   top: 64px;
-  left: 0;
+  left: -120px;
   z-index: 5;
   width: 212px;
+  transition : all 1s ease-out;
 }
 
+.weather:hover {
+  left: 0;
+}
 
 .apiNews {
   position: fixed;
-  top: 64px;
-  right: 0;
+  top: 120px;
+  right: -120px;
   z-index: 5;
   width: 212px;
-  background: white;
+  background: black;
+  color: white;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
-  height: 80%;
-  overflow: scroll;
+  height: 200px;
+  overflow: auto;
+  transition : all 2s ease-out;
 }
 
+.apiNews:hover{
+  height: 100%;
+  top:68px;
+  right: 0;
+}
 
 .app-news-list {
   list-style: none;
   padding: 0;
   font-size: 16px;
   font-weight: bold;
-
 }
 
 .app-news-list li {
-
 }
 
 .app-news-list li span{

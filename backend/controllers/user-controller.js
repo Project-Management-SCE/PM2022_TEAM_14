@@ -235,10 +235,34 @@ const updateUser = async (req, res, next) => {
     res.status(200).json({user: user.toObject({getters : true})})
 }
 
+
+const getUsersStats = async (req, res, next) => {
+    let users;
+    try {
+        users = await User.find({}, '-password');
+    }catch (e) {
+        const error = new HttpError(
+            "Could not fetch users", 500
+        )
+        return next(error)
+    }
+
+    const usersData = users.map(user => user.toObject({getters: true}));
+
+    const usersRating = usersData.map(u => {
+        return {name : u.name, posts: u.posts.length};
+    }).sort((a,b) => {
+       return  a.posts > b.posts;
+    });
+
+    res.json({userRating : usersRating});
+};
+
 exports.getUserData = getUserData;
 exports.signup = signup;
 exports.login = login;
 exports.deleteUser = deleteUser;
 exports.getUsers = getUsers;
 exports.updateUser = updateUser;
+exports.getUserStats = getUsersStats;
 
