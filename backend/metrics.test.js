@@ -24,12 +24,10 @@ describe("Metrics tests", () => {
 
 
     describe("Metrics for posts ", () => {
-
-        // test("Update user info without permissions should respond with a 403 status code", async () => {
-        //     const response = await request(app).patch("/api/users/625723f2eb32216ea39da867").send({name : 'test', email: 'test'})
-        //     expect(response.statusCode).toBe(403)
-        // })
-
+        test("Get post metrics only for users with token", async () => {
+            const response = await request(app).get("/api/posts/stats");
+            expect(response.statusCode).toBe(403)
+        })
     })
 
 
