@@ -15,10 +15,11 @@ describe("Metrics tests", () => {
 
     describe("Metrics Test for users ", () => {
 
-        // test("Get all posts should respond with a 200 status code", async () => {
-        //     const response = await request(app).get("/api/posts")
-        //     expect(response.statusCode).toBe(200)
-        // })
+        test("Get user metrics only for users with token", async () => {
+            const response = await request(app).get("/api/users/stats");
+            expect(response.statusCode).toBe(403)
+        })
+
 
     })
 
